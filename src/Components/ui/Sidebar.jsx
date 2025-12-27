@@ -44,6 +44,18 @@ const Sidebar = ({ isOpen, onClose }) => {
         );
 
         gsap.fromTo(
+          ".address-item",
+          { y: 20, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power3.out",
+            delay: 0.4,
+          }
+        );
+
+        gsap.fromTo(
           ".social-icon",
           { y: 20, opacity: 0 },
           {
@@ -88,7 +100,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Footer */}
           <div className="p-6 md:p-8 flex flex-row justify-between items-end gap-6 text-sm  md:text-lg font-medium font-urbanist">
-            <div className="flex flex-col gap-2">
+            <div className="address-item flex flex-col gap-2">
               <p>Phone: +91 949 714 8473</p>
               <p>Email: Info@resonancerehab.com</p>
               <p>Location: Kerala, India</p>
