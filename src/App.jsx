@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Hero from "./Components/Section/Hero";
-import SecondPage from "./Components/Pages/SecondPage";
-import Navbar from "./Components/Common/Navbar";
+import Hero from "./components/Section/Hero";
+import SecondPage from "./components/Pages/SecondPage";
+import Navbar from "./components/common/Navbar";
 
 const App = () => {
   return (
