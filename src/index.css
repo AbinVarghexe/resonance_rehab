@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@font-face {
+  font-family: 'AutumnBright';
+  src: url('/fonts/AutumnBright.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'PPEditorialNew';
+  src: url('/fonts/PPEditorialNew.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist.ttf') format('truetype');
+}
+
+body {
+  @apply font-urbanist bg-background text-primary-color overflow-x-hidden overflow-y-auto;
+}
+
+@layer components {
+  .main-button {
+    @apply bg-button-main text-secondary-color font-medium font-urbanist px-6 py-2 rounded-full transition-colors;
+  }
+  .Navbar{
+    @apply flex items-center justify-between px-4 py-2;
+  }
+  .back-button{
+    @apply bg-secondary-color text-primary-color font-medium font-urbanist px-6 py-2 rounded-full transition-colors;
+  }
+}
