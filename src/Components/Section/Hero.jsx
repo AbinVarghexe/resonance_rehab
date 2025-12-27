@@ -28,6 +28,8 @@ const Hero = () => {
           inset: 0,
           top: 0,
           height: "100%",
+          scale: 1.5, // Zoomed in initially
+          transformOrigin: "bottom center", // Anchor zoom to bottom
         }); // Full screen image
 
         // Navbar is a sibling component, so we must select it globally, not scoped to heroRef
@@ -84,12 +86,13 @@ const Hero = () => {
         }
 
         // 3. Image Moves/Scales to Bottom Position
-        // Animate container to top: 55vh, height: 45vh
+        // Animate container to top: 55vh, height: 45vh, scale: 1
         tl.to(
           imageContainerRef.current,
           {
             top: "55vh",
             height: "45vh",
+            scale: 1,
             duration: 2,
             ease: "power2.inOut",
           },
@@ -178,7 +181,7 @@ const Hero = () => {
           <img
             src="/images/Hero/HeroMobBg.png"
             alt="Children Playing"
-            className="w-full h-full object-cover object-top md:object-center"
+            className="w-full h-full object-cover object-top md:object-bottom"
           />
         </picture>
 
@@ -263,7 +266,7 @@ const Hero = () => {
       {/* Initial Desktop: y: -100% (hidden up) */}
       <div
         ref={overlayRef}
-        className="relative z-10 w-full flex flex-col items-start pt-28 px-6 pb-8 md:pb-0 md:absolute md:top-0 md:left-0 md:h-[55vh] md:bg-white md:pt-[75px] md:justify-center md:items-start md:px-12 lg:px-24 order-1 shadow-xl"
+        className="relative z-10 w-full flex flex-col items-start pt-28 px-6 md:absolute md:top-0 md:left-0 md:h-[55vh] md:bg-white md:pt-[75px] md:justify-center md:items-start md:px-12 lg:px-24 order-1 shadow-xl"
         // Inline style removed, handled by GSAP
       >
         {/* Reset transform for mobile via CSS if needed, but matchMedia handles logic. 
