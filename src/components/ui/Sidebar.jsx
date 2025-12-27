@@ -106,7 +106,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           {/* Menu Items */}
           <div
             ref={menuRef}
-            className="flex-1 flex flex-col items-center bg justify-center gap-4 px-4 pt-16 md:pt-0 relative z-[60]"
+            className="flex-1 flex flex-col items-center bg justify-center gap-4 px-4 pt-16 md:pt-0 relative z-60"
           >
             {menuItems.map((item, index) => (
               <Link key={index} to={item.path} onClick={onClose}>

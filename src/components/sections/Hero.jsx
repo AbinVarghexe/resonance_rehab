@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { DOODLES } from "../../constants/heroConstants";
 import { useHeroAnimation } from "../../hooks/useHeroAnimation";
-import HeroSplash from "../sections/hero/HeroSplash";
-import HeroBackground from "../sections/hero/HeroBackground";
-import HeroContent from "../sections/hero/HeroContent";
+import HeroSplash from "./hero/HeroSplash";
+import HeroBackground from "./hero/HeroBackground";
+import HeroContent from "./hero/HeroContent";
 
 const Hero = () => {
   const heroRef = useRef(null);

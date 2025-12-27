@@ -6,7 +6,7 @@ const HeroSplash = ({ titleRef, overlayRef }) => {
       {/* Gradient Overlay */}
       <div
         ref={overlayRef}
-        className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/70"
+        className="absolute inset-0 bg-linear-to-b from-black/70 via-black/30 to-black/70"
       />
       <h1
         ref={titleRef}
