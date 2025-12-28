@@ -8,7 +8,7 @@ const HeroContent = ({ overlayRef, contentRef }) => {
   return (
     <div
       ref={overlayRef}
-      className="relative z-10 w-full flex flex-col items-start pt-28 px-6 md:absolute md:top-0 md:left-0 md:h-[55vh] md:bg-white md:pt-[75px] md:justify-center md:items-start md:px-12 lg:px-24 order-1 shadow-xl"
+      className="relative z-10 w-full py-12 flex flex-col items-start pt-24 px-6 md:absolute md:top-0 md:left-0 md:h-[55vh] md:bg-white md:pt-[75px] md:justify-center md:items-start md:px-12 lg:px-24 order-1 shadow-xl"
     >
       <div
         ref={contentRef}
@@ -35,7 +35,7 @@ const HeroContent = ({ overlayRef, contentRef }) => {
           every little mind feels understood, supported, and safe to grow.
         </p>
 
-        <div className="hero-button relative mt-8 z-30 flex w-full justify-end px-6 md:absolute md:bottom-0 md:right-24 md:translate-y-1/2 md:w-auto md:px-0">
+        <div className="hero-button absolute bottom-0 right-6 translate-y-1/2 z-30 flex w-auto md:right-24 md:left-auto md:bottom-0 md:translate-x-0 md:translate-y-1/2 md:px-0">
           <MainButton
             onClick={() => navigate("/second-page")}
             className="bg-button-main text-primary-color px-6 py-2 rounded-full text-lg font-medium hover:scale-105 transition-transform shadow-lg"
