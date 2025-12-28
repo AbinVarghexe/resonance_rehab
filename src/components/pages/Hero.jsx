@@ -4,6 +4,7 @@ import { useHeroAnimation } from "../../hooks/useHeroAnimation";
 import HeroSplash from "../sections/hero/HeroSplash";
 import HeroBackground from "../sections/hero/HeroBackground";
 import HeroContent from "../sections/hero/HeroContent";
+import AboutUs from "./AboutUs";
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -15,6 +16,7 @@ const Hero = () => {
   const contentRef = useRef(null);
   const socialRef = useRef(null);
   const bgImageRef = useRef(null);
+  const aboutRef = useRef(null);
 
   const { handleResize } = useHeroAnimation({
     heroRef,
@@ -25,6 +27,7 @@ const Hero = () => {
     splashOverlayRef,
     socialRef,
     bgImageRef,
+    aboutRef,
   });
 
   return (
@@ -44,6 +47,11 @@ const Hero = () => {
       />
 
       <HeroContent overlayRef={overlayRef} contentRef={contentRef} />
+
+      {/* About Us Content layered into the same scroll context */}
+      <div className="relative w-full h-auto pointer-events-auto md:absolute md:top-[40vh] md:left-0 md:min-h-screen md:pointer-events-none md:z-10 flex flex-col justify-start">
+        <AboutUs ref={aboutRef} />
+      </div>
     </div>
   );
 };

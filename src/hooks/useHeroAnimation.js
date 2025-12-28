@@ -14,6 +14,7 @@ export const useHeroAnimation = ({
   splashOverlayRef,
   socialRef,
   bgImageRef,
+  aboutRef,
 }) => {
   const handleResize = useCallback(() => {
     updateDoodleContainer(
@@ -53,6 +54,10 @@ export const useHeroAnimation = ({
         });
 
         const navbar = document.querySelector(".main-navbar");
+        const navLogo = document.querySelector(".main-navbar a");
+        const navHamburgerLines = document.querySelectorAll(".main-navbar button span");
+        const PRIMARY_COLOR = "#19083B";
+
         if (navbar) gsap.set(navbar, { autoAlpha: 0 });
         gsap.set(".hero-doodles", { autoAlpha: 0 });
         gsap.set(".hero-footer-caption", { autoAlpha: 0 });
@@ -61,7 +66,7 @@ export const useHeroAnimation = ({
           scrollTrigger: {
             trigger: heroRef.current,
             start: "top top",
-            end: "+=150%",
+            end: "+=300%", // Extended for About Us section
             scrub: 1,
             pin: true,
             onUpdate: () => updateDoodleContainer(
@@ -104,6 +109,7 @@ export const useHeroAnimation = ({
             "<+=0.5"
           );
 
+        // --- Step 1: Image moves to Middle/Bottom (Hero State) ---
         tl.to(
           imageContainerRef.current,
           {
@@ -129,6 +135,96 @@ export const useHeroAnimation = ({
 
         tl.to([".hero-footer-caption"], { autoAlpha: 1, duration: 1 }, "-=1");
         tl.from(socialRef.current, { x: 50, opacity: 0, duration: 1 }, "-=1");
+
+        // --- Step 2: Transition to About Us (Image Bottom -> Top) ---
+        // Fade out Hero Content AND Container (to remove white bg)
+        tl.to(
+             [overlayRef.current, ".hero-text-item", ".hero-description", ".hero-button", ".hero-footer-caption", socialRef.current],
+             { opacity: 0, y: -50, duration: 1, stagger: 0.1 }
+        );
+
+        // Move Image to Top (30vh height as requested for About Us pattern)
+        tl.to(imageContainerRef.current, {
+             top: "0%",
+             height: "40vh", // Using 40vh as requested in Step 211
+             zIndex: 5, // Force z-index to ensure visibility
+             opacity: 1, // Ensure opacity is full
+             duration: 2,
+             ease: "power2.inOut"
+        }, "<");
+
+        // Turn Navbar ITEMS White (Text & Hamburger Lines)
+        if (navbar) {
+             if (navLogo) {
+                 tl.to(navLogo, { color: "#ffffff", duration: 1, ease: "power2.inOut" }, "<");
+             }
+             if (navHamburgerLines.length > 0) {
+                 tl.to(navHamburgerLines, { backgroundColor: "#ffffff", duration: 1, ease: "power2.inOut" }, "<");
+             }
+        }
+
+        // Move White Background Up (if necessary, or just let About content slide over)
+        // Here we slide the About Content Up (Reveal)
+         tl.to(
+            aboutRef.current,
+            { opacity: 1, y: 0, duration: 2, ease: "power2.out", pointerEvents: "all" },
+            "<+=0.5"
+         );
+         
+         // --- Step 3: Scroll Content UP to Cover Image (Parallax) ---
+         // Image stays fixed. Content scrolls OVER it.
+         tl.to(aboutRef.current, {
+            y: () => {
+                const aboutHeight = aboutRef.current ? aboutRef.current.offsetHeight : 0;
+                const viewHeight = window.innerHeight;
+                // We want to scroll up until Bottom touches Viewport Bottom.
+                // Target Y = 0.6 * viewHeight - aboutHeight;
+                // Make sure we at least cover the image (-40vh).
+                const minScroll = -0.4 * viewHeight;
+                const fullScroll = 0.6 * viewHeight - aboutHeight;
+                // We want the GREATER magnitude of scroll (more negative).
+                // Actually min() of negative numbers gives the more negative one.
+                return Math.min(minScroll, fullScroll);
+            },
+            duration: 2,
+            ease: "none" // Linear feel for scrolling
+         });
+
+         // Animate INNER Content Padding to create headspace
+         // This ensures background stays full, but text moves down
+         tl.to(".about-content-inner", {
+             paddingTop: "10rem",
+             duration: 2,
+             ease: "none"
+         }, "<");
+
+         // Revert Navbar Colors to Primary as content covers image
+         if (navLogo) {
+            tl.to(navLogo, { color: PRIMARY_COLOR, duration: 2, ease: "none" }, "<");
+         }
+         if (navHamburgerLines.length > 0) {
+            tl.to(navHamburgerLines, { backgroundColor: PRIMARY_COLOR, duration: 2, ease: "none" }, "<");
+         }
+      });
+      mm.add("(max-width: 767px)", () => {
+         // Setup
+         const navbar = document.querySelector(".main-navbar");
+         
+         // 1. Auto-Play Entry (Simple Fade In)
+         const entryTl = gsap.timeline();
+         entryTl.to(splashOverlayRef.current, { opacity: 0, duration: 1, delay: 0.5 })
+                .to(splashTitleRef.current, { opacity: 0, y: -50, scale: 0.9, duration: 1 }, "<")
+                .from([".hero-text-item", ".hero-description", ".hero-button"], { 
+                    y: 20, 
+                    opacity: 0, 
+                    stagger: 0.1, 
+                    duration: 1 
+                }, "-=0.5")
+                .from(socialRef.current, { x: -20, opacity: 0, duration: 0.5 }, "-=0.5");
+
+         if (navbar) entryTl.to(navbar, { autoAlpha: 1, duration: 0.5 }, "<");
+         
+         // No ScrollTrigger for mobile - Static Layout
       });
     }, heroRef);
     return () => ctx.revert();

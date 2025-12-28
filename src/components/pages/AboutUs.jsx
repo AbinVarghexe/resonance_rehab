@@ -1,36 +1,30 @@
-import React from "react";
+import React, { forwardRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { SOCIAL_LINKS } from "../../constants/heroConstants";
 import HeroBackground from "../sections/hero/HeroBackground";
+import MainButton from "../ui/MainButton";
 
-// Assets from Figma Design
-// Using standard assets now for the bottom decorative element removal.
+const AboutUs = forwardRef((props, ref) => {
+  const navigate = useNavigate();
 
-const AboutUs = () => {
   return (
-    <section className="w-full min-h-screen flex flex-col md:block md:relative overflow-hidden">
-      {/* Background Image Section 
-          Mobile: Top 40% height, relative.
-          Desktop: Full screen, absolute behind content.
-      */}
-      <div className="relative w-full h-[50vh] md:absolute md:inset-0 md:h-full md:z-0">
-        <HeroBackground simple imageClass="object-top" />
-        {/* Desktop Overlay: Only visible on md+ to dim the background for text */}
-        <div className="hidden md:block absolute inset-0 bg-background/85 z-10" />
+    <section
+      ref={ref}
+      className="w-full flex flex-col md:block relative md:opacity-0 md:translate-y-20"
+    >
+      {/* Mobile-Only Image: To ensure AboutUs stands alone when scroll animation is disabled on mobile */}
+      <div className="md:hidden relative w-full h-[50vh] shrink-0">
+        <HeroBackground simple imageClass="object-bottom" />
       </div>
 
-      {/* Content Section 
-          Mobile: Bottom section, solid background.
-          Desktop: Centered overlay, transparent background.
-      */}
-      <div className="relative z-20 w-full flex-1 bg-background px-6 py-12 flex flex-col items-center justify-center text-center md:bg-transparent md:h-full md:py-0">
+      <div className="about-content-inner relative z-20 w-full flex-1 bg-background px-6 py-12 flex flex-col items-center justify-center text-center">
         {/* Subtitle */}
         <h3 className="font-urbanist text-primary-color/70 uppercase tracking-[0.2em] text-sm md:text-base mb-6 md:mb-8">
           About Resonance Rehab
         </h3>
 
         {/* Main Title */}
-        {/* Main Title */}
-        <h1 className="font-autumn text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.1] mb-8 md:mb-12 flex flex-col items-center">
+        <h1 className="font-autumn text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] mb-8 md:mb-12 flex flex-col items-center">
           <div className="block">
             <span className="text-secondary-color">Care</span>{" "}
             <span className="text-primary-color">That Connects.</span>
@@ -40,6 +34,16 @@ const AboutUs = () => {
             <span className="text-primary-color">That Protects.</span>
           </div>
         </h1>
+
+        {/* CTA Button - Desktop/Responsive */}
+        <div className="mb-8 md:mb-12">
+          <MainButton
+            onClick={() => navigate("/contact")}
+            className="inline-flex items-center justify-center px-8 py-3 md:px-10 md:py-4 text-base md:text-lg font-bold tracking-wide transition-transform hover:scale-105 hover:shadow-lg active:scale-95"
+          >
+            Start Your Child’s Journey
+          </MainButton>
+        </div>
 
         {/* Body Text */}
         <div className="space-y-6 max-w-2xl mx-auto font-urbanist text-primary-color/80 text-lg md:text-xl leading-relaxed">
@@ -74,5 +78,6 @@ const AboutUs = () => {
       </div>
     </section>
   );
-};
+});
+
 export default AboutUs;
