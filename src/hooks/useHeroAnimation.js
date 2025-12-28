@@ -26,13 +26,16 @@ export const useHeroAnimation = ({
 
   useEffect(() => {
     // Run on every frame to handle Resize + Scroll Scrub Lag perfectly
+    // Only run on desktop (768px+) to avoid unnecessary computations on mobile
     const tickerCallback = () => {
-         updateDoodleContainer(
-            imageContainerRef.current,
-            doodleOverlayRef.current,
-            bgImageRef.current
+      if (window.innerWidth >= 768) {
+        updateDoodleContainer(
+          imageContainerRef.current,
+          doodleOverlayRef.current,
+          bgImageRef.current
         );
-    }
+      }
+    };
     gsap.ticker.add(tickerCallback);
     return () => {
       gsap.ticker.remove(tickerCallback);
@@ -209,19 +212,27 @@ export const useHeroAnimation = ({
       mm.add("(max-width: 767px)", () => {
          // Setup
          const navbar = document.querySelector(".main-navbar");
+         const heroContainer = heroRef.current;
          
-         // 1. Auto-Play Entry (Simple Fade In)
+         // Set initial state - hide everything except splash
+         gsap.set(heroContainer.querySelectorAll(':scope > *:not(.hero-splash)'), { opacity: 0 });
+         if (navbar) gsap.set(navbar, { autoAlpha: 0 });
+         
+         // Auto-Play Entry - Animate entire page as one unit
          const entryTl = gsap.timeline();
+         
+         // Fade out splash
          entryTl.to(splashOverlayRef.current, { opacity: 0, duration: 1, delay: 0.5 })
-                .to(splashTitleRef.current, { opacity: 0, y: -50, scale: 0.9, duration: 1 }, "<")
-                .from([".hero-text-item", ".hero-description", ".hero-button"], { 
-                    y: 20, 
-                    opacity: 0, 
-                    stagger: 0.1, 
-                    duration: 1 
-                }, "-=0.5")
-                .from(socialRef.current, { x: -20, opacity: 0, duration: 0.5 }, "-=0.5");
-
+                .to(splashTitleRef.current, { opacity: 0, y: -50, scale: 0.9, duration: 1 }, "<");
+         
+         // Fade in entire page at once
+         entryTl.to(heroContainer.querySelectorAll(':scope > *:not(.hero-splash)'), { 
+             opacity: 1, 
+             duration: 0.8, 
+             ease: "power2.out" 
+         }, "-=0.3");
+         
+         // Show navbar
          if (navbar) entryTl.to(navbar, { autoAlpha: 1, duration: 0.5 }, "<");
          
          // No ScrollTrigger for mobile - Static Layout

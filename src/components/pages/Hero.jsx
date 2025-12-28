@@ -49,7 +49,7 @@ const Hero = () => {
       <HeroContent overlayRef={overlayRef} contentRef={contentRef} />
 
       {/* About Us Content layered into the same scroll context */}
-      <div className="relative w-full h-auto pointer-events-auto md:absolute md:top-[40vh] md:left-0 md:min-h-screen md:pointer-events-none md:z-10 flex flex-col justify-start">
+      <div className="md:block hidden relative w-full h-auto pointer-events-auto md:absolute md:top-[40vh] md:left-0 md:min-h-screen md:pointer-events-none md:z-10 flex flex-col justify-start">
         <AboutUs ref={aboutRef} />
       </div>
     </div>
