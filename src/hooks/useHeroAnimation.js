@@ -213,9 +213,45 @@ export const useHeroAnimation = ({
          // Setup
          const navbar = document.querySelector(".main-navbar");
          const heroContainer = heroRef.current;
-         
-         // Set initial state - hide everything except splash
-         gsap.set(heroContainer.querySelectorAll(':scope > *:not(.hero-splash)'), { opacity: 0 });
+         const aboutContainer = aboutRef.current; // The AboutUs component ref
+
+         // --- Initial State for Mobile SCROLL Animation ---
+         // 1. Ensure Hero is full height and locked
+         gsap.set(heroContainer, { 
+             height: "100dvh", // Use dynamic viewport height
+             overflow: "hidden", // Prevent inner scroll
+             overscrollBehavior: "none" // Prevent bounce
+         });
+
+         // 2. Position About Section: 
+         //    - Absolute top:0 to sit on top of Hero (dom-wise)
+         //    - y: "100%" to be pushed down off-screen initially
+         //    - zIndex: 20 to slide OVER hero content
+         if (aboutContainer) {
+             gsap.set(aboutContainer.parentElement, { // Target the wrapper div in Hero.jsx
+                 position: "absolute",
+                 top: 0,
+                 left: 0,
+                 width: "100%",
+                 height: "100dvh", // Use dynamic viewport height
+                 zIndex: 20,
+                 y: "100%",
+                 overflow: "hidden", // Prevent inner scroll
+                 overscrollBehavior: "none"
+             });
+             // Ensure About container itself is full height
+             gsap.set(aboutContainer, { 
+                 height: "100dvh",
+                 overflow: "hidden" 
+             });
+         }
+
+         // Set initial state - hide Hero content for entry animation (optional, keeping existing entry logic)
+         gsap.set(heroContainer.querySelectorAll(':scope > *:not(.hero-splash):not(:nth-last-child(1))'), { opacity: 0 }); // Exclude About wrapper (last child) from generic opacity set if needed, or manage separate
+         // Actually, let's keep the user's existing entry fade logic but make sure it doesn't break our new positioning.
+         // Existing logic: gsap.set(heroContainer.querySelectorAll(':scope > *:not(.hero-splash)'), { opacity: 0 });
+         // We'll trust the existing entry logic to fade things IN, but we ensure About stays at y:100%.
+
          if (navbar) gsap.set(navbar, { autoAlpha: 0 });
          
          // Auto-Play Entry - Animate entire page as one unit
@@ -225,8 +261,11 @@ export const useHeroAnimation = ({
          entryTl.to(splashOverlayRef.current, { opacity: 0, duration: 1, delay: 0.5 })
                 .to(splashTitleRef.current, { opacity: 0, y: -50, scale: 0.9, duration: 1 }, "<");
          
-         // Fade in entire page at once
-         entryTl.to(heroContainer.querySelectorAll(':scope > *:not(.hero-splash)'), { 
+         // Fade in Hero Content
+         // Note: We filter out the About wrapper from this entry fade so it doesn't flash if it was hidden
+         const heroChildren = heroContainer.querySelectorAll(':scope > *:not(.hero-splash)');
+         // We effectively want to fade in everything that is currently 0 opacity.
+         entryTl.to(heroChildren, { 
              opacity: 1, 
              duration: 0.8, 
              ease: "power2.out" 
@@ -235,7 +274,37 @@ export const useHeroAnimation = ({
          // Show navbar
          if (navbar) entryTl.to(navbar, { autoAlpha: 1, duration: 0.5 }, "<");
          
-         // No ScrollTrigger for mobile - Static Layout
+         // --- Mobile Scroll Transition Logic ---
+         if (aboutContainer) {
+             const scrollTl = gsap.timeline({
+                 scrollTrigger: {
+                     trigger: heroContainer,
+                     start: "top top",
+                     end: "+=100%", // Scroll 1 viewport height to transition
+                     scrub: true,   // Sync with scroll
+                     pin: true,     // Pin the Hero
+                     anticipatePin: 1, // Smooth pinning
+                 }
+             });
+
+             // Slide About Up (y: 100% -> 0%)
+             // Hero stays pinned underneath, creating the overlay effect.
+             scrollTl.to(aboutContainer.parentElement, {
+                 y: "0%",
+                 ease: "none" // Linear movement linked to scroll
+             });
+
+             // Animate Navbar to White for visibility over About Section
+             const navLogo = document.querySelector(".main-navbar a");
+             const navHamburgerLines = document.querySelectorAll(".main-navbar button span");
+
+             if (navLogo) {
+               scrollTl.to(navLogo, { color: "#ffffff", ease: "none" }, "<");
+             }
+             if (navHamburgerLines.length > 0) {
+               scrollTl.to(navHamburgerLines, { backgroundColor: "#ffffff", ease: "none" }, "<");
+             }
+         }
       });
     }, heroRef);
     return () => ctx.revert();

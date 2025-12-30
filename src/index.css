@@ -47,4 +47,7 @@ body {
   .menu-items{
     @apply flex flex-col gap-4;
   }
+  .dynamic-screen-container {
+    @apply w-full h-[100dvh] flex flex-col justify-evenly overflow-hidden relative;
+  }
 }

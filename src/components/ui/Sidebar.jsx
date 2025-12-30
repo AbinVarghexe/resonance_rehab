@@ -23,6 +23,7 @@ const socialIcons = [
 ];
 
 const Sidebar = ({ isOpen, onClose }) => {
+  console.log("Sidebar rendered, isOpen:", isOpen);
   const sidebarRef = useRef(null);
   const menuRef = useRef(null);
   const socialRef = useRef(null);
@@ -30,34 +31,15 @@ const Sidebar = ({ isOpen, onClose }) => {
   // Disable body scroll when sidebar is open
   useEffect(() => {
     if (isOpen) {
-      // Store current scroll position
-      const scrollY = window.scrollY;
-      document.body.style.position = "fixed";
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.left = "0";
-      document.body.style.right = "0";
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
     } else {
-      // Restore scroll position
-      const scrollY = document.body.style.top;
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || "0") * -1);
-      }
     }
 
     // Cleanup on unmount
     return () => {
-      document.body.style.position = "";
-      document.body.style.top = "";
-      document.body.style.left = "";
-      document.body.style.right = "";
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
@@ -117,7 +99,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           animate={{ x: 0 }}
           exit={{ x: "100%" }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed inset-0 z-40 flex flex-col bg-[#e8e6f3] text-[#19083b] overflow-y-auto overflow-x-hidden pt-20 md:pt-10"
+          className="fixed inset-0 z-[10000] flex flex-col bg-[#e8e6f3] text-[#19083b] overflow-y-auto overflow-x-hidden pt-20 md:pt-10"
           ref={sidebarRef}
         >
           {/* Desktop Title */}
