@@ -3,7 +3,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { updateDoodleContainer } from "../utils/doodleUtils";
 
-gsap.registerPlugin(ScrollTrigger);
+// Fix 1 & 2: Safe Registration in Client Check (though top-level is ok, this is safer per user request)
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export const useHeroAnimation = ({
   heroRef,
@@ -43,6 +46,9 @@ export const useHeroAnimation = ({
   }, []);
 
   useLayoutEffect(() => {
+    // Fix 2: Safety check for SSR/Window (redundant for useLayoutEffect but requested)
+    if (typeof window === "undefined") return;
+
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
@@ -209,9 +215,9 @@ export const useHeroAnimation = ({
             tl.to(navHamburgerLines, { backgroundColor: PRIMARY_COLOR, duration: 2, ease: "none" }, "<");
          }
       });
-      mm.add("(max-width: 767px)", () => {
-         // ... (existing setup code is fine, just wrapping the refresh logic at the end)
-         
+      
+      // Fix: Adjusted subpixel precision coverage
+      mm.add("(max-width: 767.98px)", () => {
          // Setup
          const navbar = document.querySelector(".main-navbar");
          const heroContainer = heroRef.current;
