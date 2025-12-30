@@ -1,5 +1,26 @@
 @import "tailwindcss";
 
+@theme {
+  /* Fonts */
+  --font-autumn: "AutumnBright", sans-serif;
+  --font-editorial: "PPEditorialNew", serif;
+  --font-urbanist: "Urbanist", sans-serif;
+
+  /* Colors */
+  --color-background: #E8E6F3;
+  --color-secondary-color: #6942B5;
+  --color-primary-color: #19083B;
+  --color-white-color: #FFFFFF;
+  --color-black-color: #000000;
+  --color-button-main: #DAE562;
+  
+  /* Legacy Colors */
+  --color-cream: #fdfbef;
+  --color-deep-purple: #19083b;
+  --color-deep-blue: #081f5c;
+  --color-pale-blue: #e6ebf8;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                 Typography                                 */
 /* -------------------------------------------------------------------------- */
