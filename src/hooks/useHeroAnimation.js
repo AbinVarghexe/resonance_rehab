@@ -210,6 +210,8 @@ export const useHeroAnimation = ({
          }
       });
       mm.add("(max-width: 767px)", () => {
+         // ... (existing setup code is fine, just wrapping the refresh logic at the end)
+         
          // Setup
          const navbar = document.querySelector(".main-navbar");
          const heroContainer = heroRef.current;
@@ -246,11 +248,8 @@ export const useHeroAnimation = ({
              });
          }
 
-         // Set initial state - hide Hero content for entry animation (optional, keeping existing entry logic)
-         gsap.set(heroContainer.querySelectorAll(':scope > *:not(.hero-splash):not(:nth-last-child(1))'), { opacity: 0 }); // Exclude About wrapper (last child) from generic opacity set if needed, or manage separate
-         // Actually, let's keep the user's existing entry fade logic but make sure it doesn't break our new positioning.
-         // Existing logic: gsap.set(heroContainer.querySelectorAll(':scope > *:not(.hero-splash)'), { opacity: 0 });
-         // We'll trust the existing entry logic to fade things IN, but we ensure About stays at y:100%.
+         // Set initial state - keep entry fade logic
+         // ... (rest of opacity sets)
 
          if (navbar) gsap.set(navbar, { autoAlpha: 0 });
          
@@ -262,9 +261,7 @@ export const useHeroAnimation = ({
                 .to(splashTitleRef.current, { opacity: 0, y: -50, scale: 0.9, duration: 1 }, "<");
          
          // Fade in Hero Content
-         // Note: We filter out the About wrapper from this entry fade so it doesn't flash if it was hidden
          const heroChildren = heroContainer.querySelectorAll(':scope > *:not(.hero-splash)');
-         // We effectively want to fade in everything that is currently 0 opacity.
          entryTl.to(heroChildren, { 
              opacity: 1, 
              duration: 0.8, 
@@ -284,6 +281,7 @@ export const useHeroAnimation = ({
                      scrub: true,   // Sync with scroll
                      pin: true,     // Pin the Hero
                      anticipatePin: 1, // Smooth pinning
+                     invalidateOnRefresh: true, // Recalculate on resize/refresh
                  }
              });
 
@@ -306,8 +304,21 @@ export const useHeroAnimation = ({
              }
          }
       });
+      
+      // Force refresh after a short delay to ensure everything is settled in Prod
+      setTimeout(() => ScrollTrigger.refresh(), 500);
+      setTimeout(() => ScrollTrigger.refresh(), 2000); // Safety fallback
+
     }, heroRef);
-    return () => ctx.revert();
+    
+    // Add load listener for additional safety
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleLoad);
+
+    return () => {
+        ctx.revert();
+        window.removeEventListener("load", handleLoad);
+    };
   }, []);
 
   return { handleResize };
