@@ -1,5 +1,5 @@
 import React from "react";
-import MainButton from "../../ui/MainButton";
+import Button from "../../ui/Button";
 import { useNavigate } from "react-router-dom";
 
 const HeroContent = ({ overlayRef, contentRef }) => {
@@ -36,12 +36,12 @@ const HeroContent = ({ overlayRef, contentRef }) => {
         </p>
 
         <div className="hero-button absolute bottom-0 right-6 translate-y-1/2 z-30 flex w-auto md:right-24 md:left-auto md:bottom-0 md:translate-x-0 md:translate-y-1/2 md:px-0">
-          <MainButton
+          <Button
             onClick={() => navigate("/second-page")}
             className="bg-button-main text-primary-color px-4 py-1.5 md:px-6 md:py-2 rounded-full text-sm md:text-lg font-medium hover:scale-105 transition-transform shadow-lg"
           >
             Book a Session
-          </MainButton>
+          </Button>
         </div>
       </div>
     </div>

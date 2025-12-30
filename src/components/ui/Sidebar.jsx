@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
-import MainButton from "./MainButton"; // fix casing
+import Button from "./Button";
 
 const menuItems = [
   { label: "Home", path: "/" },
@@ -128,9 +128,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           >
             {menuItems.map((item, index) => (
               <Link key={index} to={item.path} onClick={onClose}>
-                <MainButton className="menu-item w-full">
-                  {item.label}
-                </MainButton>
+                <Button className="menu-item w-full">{item.label}</Button>
               </Link>
             ))}
           </div>

@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { SOCIAL_LINKS } from "../../constants/heroConstants";
 import HeroBackground from "../sections/hero/HeroBackground";
-import MainButton from "../ui/MainButton";
+import Button from "../ui/Button";
 
 const AboutUs = forwardRef((props, ref) => {
   const navigate = useNavigate();
@@ -39,12 +39,12 @@ const AboutUs = forwardRef((props, ref) => {
 
         {/* CTA Button - Desktop/Responsive */}
         <div className="hidden md:block mb-8 md:mb-8">
-          <MainButton
+          <Button
             onClick={() => navigate("/contact")}
             className="inline-flex items-center justify-center px-8 py-3 md:px-10 md:py-4 text-base md:text-lg font-bold tracking-wide transition-transform hover:scale-105 hover:shadow-lg active:scale-95"
           >
             Start Your Child’s Journey
-          </MainButton>
+          </Button>
         </div>
 
         {/* Body Text */}
