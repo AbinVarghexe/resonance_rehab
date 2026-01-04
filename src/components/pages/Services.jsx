@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
-import Container from "../ui/Container";
 import Button from "../ui/Button";
+import ServiceCard from "../ui/ServiceCard";
 
 const SERVICE_CARDS = [
   {
@@ -51,12 +51,13 @@ const Services = forwardRef((props, ref) => {
   return (
     <section
       ref={ref}
-      className="w-full min-h-screen bg-[#e8e6f3] flex flex-col justify-center py-20 relative overflow-hidden"
+      className="w-full min-h-screen bg-[#e8e6f3] flex flex-col justify-center py-20 relative text-left"
     >
-      <Container className="flex flex-col h-full justify-center">
+      {/* Wrapper for Vertical Scroll Animation */}
+      <div className="services-content-inner w-full flex flex-col items-center">
         {/* Header Section */}
-        <div className="mb-8 md:mb-16">
-          <div className="flex items-baseline justify-center gap-20 mb-12">
+        <div className="mb-8 md:mb-16 w-full max-w-[1400px] px-4 md:px-8 lg:px-12 mx-auto">
+          <div className="flex items-baseline gap-20 mb-12">
             <span className="block text-primary-color/60 text-lg font-urbanist">
               Services
             </span>
@@ -88,32 +89,18 @@ const Services = forwardRef((props, ref) => {
 
         {/* Scrollable Cards Section */}
         <div className="w-full overflow-x-auto pb-8 hide-scrollbar">
-          <div className="flex gap-6 md:gap-8 w-max px-4 services-track">
+          <div className="flex gap-6 md:gap-8 w-max services-track pl-[max(1rem,calc((100%-1400px)/2+1rem))] md:pl-[max(2rem,calc((100%-1400px)/2+2rem))] lg:pl-[max(3rem,calc((100%-1400px)/2+3rem))] pr-[max(1rem,calc((100%-1400px)/2+1rem))] md:pr-[max(2rem,calc((100%-1400px)/2+2rem))] lg:pr-[max(3rem,calc((100%-1400px)/2+3rem))]">
             {SERVICE_CARDS.map((card, index) => (
-              <div
+              <ServiceCard
                 key={index}
-                className="w-[300px] md:w-[400px] shrink-0 flex flex-col rounded-[24px] overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-white"
-              >
-                <div className="h-[200px] md:h-[240px] overflow-hidden">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                  />
-                </div>
-                <div className="p-6 md:p-8 bg-cream flex-1 flex flex-col gap-4">
-                  <h3 className="font-urbanist font-semibold text-2xl text-primary-color leading-tight">
-                    {card.title}
-                  </h3>
-                  <p className="font-urbanist font-light text-primary-color text-base leading-relaxed opacity-90">
-                    {card.description}
-                  </p>
-                </div>
-              </div>
+                title={card.title}
+                image={card.image}
+                description={card.description}
+              />
             ))}
           </div>
         </div>
-      </Container>
+      </div>
     </section>
   );
 });

@@ -61,13 +61,13 @@ const Hero = () => {
       <HeroContent overlayRef={overlayRef} contentRef={contentRef} />
 
       {/* About Us Content layered into the same scroll context */}
-      <div className="absolute top-[100vh] left-0 w-full z-20 md:block md:top-[40vh] md:min-h-screen md:pointer-events-none md:z-10 flex flex-col justify-start">
+      <div className="absolute top-[100vh] left-0 w-full z-20 md:block md:top-[40vh] md:min-h-screen md:z-10 flex flex-col justify-start">
         <AboutUs ref={aboutRef} />
       </div>
 
       {/* Why Choose Us Content - Card Stack Effect */}
       <div
-        className="absolute top-0 left-0 w-full z-30 pointer-events-none h-screen translate-y-full"
+        className="absolute top-0 left-0 w-full z-30 h-screen translate-y-full"
         ref={whyChooseUsRef}
       >
         <WhyChooseUs />
@@ -75,7 +75,7 @@ const Hero = () => {
 
       {/* Services Content - Card Stack Effect */}
       <div
-        className="absolute top-0 left-0 w-full z-40 pointer-events-none h-screen translate-y-full"
+        className="absolute top-0 left-0 w-full z-40 h-screen translate-y-full"
         ref={servicesRef}
       >
         <Services />
@@ -83,7 +83,7 @@ const Hero = () => {
 
       {/* Approach Content - Card Stack Effect */}
       <div
-        className="absolute top-0 left-0 w-full z-50 pointer-events-none h-screen translate-y-full"
+        className="absolute top-0 left-0 w-full z-50 h-screen translate-y-full"
         ref={approachRef}
       >
         <Approach />
@@ -91,7 +91,7 @@ const Hero = () => {
 
       {/* Conditions Content - Card Stack Effect */}
       <div
-        className="absolute top-0 left-0 w-full z-60 pointer-events-none h-screen translate-y-full"
+        className="absolute top-0 left-0 w-full z-60 h-screen translate-y-full"
         ref={conditionsRef}
       >
         <ConditionsWeSupport />

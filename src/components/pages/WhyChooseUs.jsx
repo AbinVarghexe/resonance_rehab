@@ -110,13 +110,7 @@ const WhyChooseUs = forwardRef((props, ref) => {
       </Container>
 
       {/* Footer Divider (optional based on Figma) */}
-      <div className="absolute bottom-10 w-full flex justify-center opacity-30">
-        <img
-          src={DOODLES.divider}
-          alt="divider"
-          className="w-[90%] md:w-[80%]"
-        />
-      </div>
+      <div className="absolute bottom-10 w-full flex justify-center h-[1.5px] bg-primary-color/20 max-w-6xl"></div>
     </section>
   );
 });

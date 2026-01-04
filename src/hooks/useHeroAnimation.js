@@ -72,8 +72,12 @@ export const useHeroAnimation = ({
         const PRIMARY_COLOR = "#19083B";
 
         if (navbar) gsap.set(navbar, { autoAlpha: 0 });
+        if (navbar) gsap.set(navbar, { autoAlpha: 0 });
         gsap.set(".hero-doodles", { autoAlpha: 0 });
         gsap.set(".hero-footer-caption", { autoAlpha: 0 });
+        
+        // Initialize About Us state (hidden initially in Hero sequence, visible in standalone)
+        gsap.set(aboutRef.current, { opacity: 0, y: 50 });
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -180,7 +184,7 @@ export const useHeroAnimation = ({
         // Here we slide the About Content Up (Reveal)
          tl.to(
             aboutRef.current,
-            { opacity: 1, y: 0, duration: 3, ease: "power2.out", pointerEvents: "all" },
+            { opacity: 1, y: 0, duration: 3, ease: "power2.out" },
             "<+=0.5"
          );
          
@@ -235,6 +239,27 @@ export const useHeroAnimation = ({
            duration: 2,
            ease: "power2.out",
            pointerEvents: "all"
+         });
+
+         // --- Step 5.4: Vertical Scroll for CONTENT (Parallax) ---
+         // Moves the whole content wrapper up
+         tl.to(servicesRef.current.querySelector('.services-content-inner'), {
+            y: () => {
+                const inner = servicesRef.current.querySelector('.services-content-inner');
+                const viewHeight = window.innerHeight;
+                if (!inner) return 0;
+                
+                // Scroll up enough to show bottom, maybe align bottom to bottom of viewport?
+                const innerHeight = inner.offsetHeight;
+                
+                // If larger than viewport, scroll diff
+                if (innerHeight > viewHeight) {
+                    return -(innerHeight - viewHeight + 100); // +100 padding
+                }
+                return 0; // Or standard parallax amount
+            },
+            duration: 2,
+            ease: "none"
          });
 
          // --- Step 5.5: Horizontal Scroll for Services Cards ---

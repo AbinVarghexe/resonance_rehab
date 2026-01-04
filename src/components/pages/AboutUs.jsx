@@ -9,10 +9,7 @@ const AboutUs = forwardRef((props, ref) => {
   const navigate = useNavigate();
 
   return (
-    <section
-      ref={ref}
-      className="w-full flex flex-col md:block relative md:opacity-0 md:translate-y-20"
-    >
+    <section ref={ref} className="w-full flex flex-col md:block relative">
       {/* Mobile-Only Image: To ensure AboutUs stands alone when scroll animation is disabled on mobile */}
       {/* Mobile-Only Image: To ensure AboutUs stands alone or has a specific header */}
       {/* Mobile-Only Image: To ensure AboutUs stands alone or has a specific header */}
