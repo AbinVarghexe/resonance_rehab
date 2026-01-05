@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useLayoutEffect } from "react"; // Added useEffect, useLayoutEffect
+import { useLocation } from "react-router-dom"; // Added useLocation
 import { DOODLES } from "../../constants/heroConstants";
 import { useHeroAnimation } from "../../hooks/useHeroAnimation";
 import HeroSplash from "../sections/hero/HeroSplash";
@@ -30,7 +31,9 @@ const Hero = () => {
   const meetTeamRef = useRef(null);
   const contactRef = useRef(null);
 
-  const { handleResize } = useHeroAnimation({
+  const location = useLocation();
+
+  const { handleResize, scrollToSection } = useHeroAnimation({
     heroRef,
     imageContainerRef,
     doodleOverlayRef,
@@ -47,6 +50,22 @@ const Hero = () => {
     meetTeamRef,
     contactRef,
   });
+
+  const isFirstRender = useRef(true);
+
+  useLayoutEffect(() => {
+    // Scroll to section based on current path
+    // Run immediately before paint to avoid visual jump
+    const isMount = isFirstRender.current;
+
+    // Use 'auto' (instant) for initial mount to avoid scroll jump
+    // Use 'smooth' for updates (navigation within Hero)
+    scrollToSection(location.pathname, isMount ? "auto" : "smooth");
+
+    if (isMount) {
+      isFirstRender.current = false;
+    }
+  }, [location.pathname, scrollToSection]);
 
   return (
     <div
