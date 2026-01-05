@@ -1,0 +1,166 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { teamData } from "../../data/teamData";
+
+const TeamCard = ({ member, onClick }) => (
+  <div
+    onClick={onClick}
+    className="bg-cream rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1"
+  >
+    <img
+      src={member.image}
+      alt={member.name}
+      className="w-full h-56 object-cover"
+    />
+    <div className="p-6">
+      <h3 className="font-urbanist text-base font-bold text-primary-color mb-1">
+        {member.name}
+      </h3>
+      <p className="font-urbanist text-secondary-color font-bold text-sm mb-3">
+        {member.title}
+      </p>
+      <p className="font-urbanist italic text-primary-color text-xs leading-relaxed">
+        {member.description}
+      </p>
+    </div>
+  </div>
+);
+
+const TeamList = () => {
+  const navigate = useNavigate();
+
+  const handleSelectMember = (member) => {
+    navigate(`/team/${member.slug}`);
+  };
+
+  const handleBack = () => {
+    navigate("/meet-our-team");
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="container-custom py-8 mt-16">
+        <button
+          onClick={handleBack}
+          className="flex items-center gap-2 bg-secondary-color text-white px-5 py-2 rounded-full font-urbanist font-medium text-sm mb-12 hover:opacity-90 transition-opacity"
+        >
+          <ArrowLeft size={16} />
+          Back
+        </button>
+
+        <div className="text-center mb-12">
+          <h1 className="font-autumn text-4xl md:text-5xl lg:text-6xl mb-4 relative inline-block">
+            <span className="text-primary-color">Meet Our </span>
+            <span className="text-secondary-color italic relative">
+              Expert Team
+              <svg
+                className="absolute -bottom-2 left-0 w-full h-8"
+                viewBox="0 0 400 20"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M10,15 Q100,8 200,12 T390,15"
+                  stroke="#DAE562"
+                  strokeWidth="4"
+                  fill="none"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M20,18 Q110,11 210,15 T400,18"
+                  stroke="#DAE562"
+                  strokeWidth="3"
+                  fill="none"
+                  strokeLinecap="round"
+                  opacity="0.7"
+                />
+              </svg>
+            </span>
+          </h1>
+          <p className="font-urbanist text-secondary-color text-sm max-w-2xl mx-auto mt-8">
+            Our certified therapists are here to guide, support, and help your
+            child grow, one step at a time.
+          </p>
+        </div>
+
+        <section className="mb-16">
+          <h2 className="font-urbanist text-secondary-color font-semibold text-center mb-8 text-lg">
+            Clinical psychologist & Behaviour Therapist
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamData.psychologists.map((member) => (
+              <TeamCard
+                key={member.id}
+                member={member}
+                onClick={() => handleSelectMember(member)}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* Reusing psychologists list for other sections as per original code structure mockup */}
+        <section className="mb-16">
+          <h2 className="font-urbanist text-secondary-color font-semibold text-center mb-8 text-lg">
+            Occupational Therapist
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamData.psychologists.slice(0, 3).map((member) => (
+              <TeamCard
+                key={member.id}
+                member={member}
+                onClick={() => handleSelectMember(member)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="font-urbanist text-secondary-color font-semibold text-center mb-8 text-lg">
+            Speech and hearing language pathologist
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamData.psychologists.map((member) => (
+              <TeamCard
+                key={member.id}
+                member={member}
+                onClick={() => handleSelectMember(member)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="font-urbanist text-secondary-color font-semibold text-center mb-8 text-lg">
+            Special educator
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamData.psychologists.map((member) => (
+              <TeamCard
+                key={member.id}
+                member={member}
+                onClick={() => handleSelectMember(member)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-16">
+          <h2 className="font-urbanist text-secondary-color font-semibold text-center mb-8 text-lg">
+            Developmental therapist
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {teamData.psychologists.slice(0, 3).map((member) => (
+              <TeamCard
+                key={member.id}
+                member={member}
+                onClick={() => handleSelectMember(member)}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default TeamList;

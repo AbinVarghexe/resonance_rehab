@@ -1,4 +1,4 @@
-import { useLayoutEffect, useCallback, useEffect } from "react";
+import { useLayoutEffect, useCallback, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { updateDoodleContainer } from "../utils/doodleUtils";
@@ -7,6 +7,13 @@ import { updateDoodleContainer } from "../utils/doodleUtils";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
+
+const updateUrl = (path) => {
+  if (typeof window !== "undefined" && window.location.pathname !== path) {
+    window.history.replaceState(null, "", path);
+  }
+};
+
 
 export const useHeroAnimation = ({
   heroRef,
@@ -31,6 +38,37 @@ export const useHeroAnimation = ({
       doodleOverlayRef.current,
       bgImageRef.current
     );
+  }, []);
+
+  const contextRef = useRef(null); // Ref to store the GSAP context
+  const timelineRef = useRef(null); // Ref to store the timeline
+
+
+
+  const scrollToSection = useCallback((path, behavior = 'smooth') => {
+    if (!timelineRef.current || !timelineRef.current.scrollTrigger) return;
+    
+    let label;
+    switch(path) {
+      case '/': label = 'hero'; break;
+      case '/About-us': label = 'about'; break;
+      case '/Why-choose-us': label = 'whyChooseUs'; break;
+      case '/Services': label = 'services'; break;
+      case '/approach': label = 'approach'; break;
+      case '/conditions': label = 'conditions'; break;
+      case '/meet-our-team': label = 'meetTeam'; break;
+      case '/contact': label = 'contact'; break;
+      default: return;
+    }
+
+    try {
+        const scrollPos = timelineRef.current.scrollTrigger.labelToScroll(label);
+        if (scrollPos !== undefined) {
+             window.scrollTo({ top: scrollPos, behavior });
+        }
+    } catch (e) {
+        console.error("Error scrolling to label:", label, e);
+    }
   }, []);
 
   useEffect(() => {
@@ -95,6 +133,9 @@ export const useHeroAnimation = ({
             ),
           },
         });
+        timelineRef.current = tl;
+
+        tl.addLabel("hero");
 
         tl.to(splashOverlayRef.current, {
           opacity: 0,
@@ -145,6 +186,9 @@ export const useHeroAnimation = ({
           { y: "0%", duration: 2, ease: "power2.inOut" },
           "<"
         );
+        
+        // Add callback to update URL to home when reversing back to this point
+        tl.call(() => updateUrl("/"), null, "<");
 
         tl.from(
           [".hero-text-item", ".hero-description", ".hero-button"],
@@ -190,6 +234,9 @@ export const useHeroAnimation = ({
             "<+=0.5"
          );
          
+         tl.addLabel("about");
+         tl.call(() => updateUrl("/About-us"), null, "<");
+         
          // --- Step 3: Scroll Content UP to Cover Image (Parallax) ---
          // Image stays fixed. Content scrolls OVER it.
          tl.to(aboutRef.current, {
@@ -232,6 +279,9 @@ export const useHeroAnimation = ({
            ease: "power2.out",
            pointerEvents: "all"
          });
+
+         tl.addLabel("whyChooseUs");
+         tl.call(() => updateUrl("/Why-choose-us"), null, "<");
  
 
 
@@ -242,6 +292,9 @@ export const useHeroAnimation = ({
            ease: "power2.out",
            pointerEvents: "all"
          });
+
+         tl.addLabel("services");
+         tl.call(() => updateUrl("/Services"), null, "<");
 
          // --- Step 5.4: Vertical Scroll for CONTENT (Parallax) ---
          // Moves the whole content wrapper up
@@ -288,6 +341,9 @@ export const useHeroAnimation = ({
            ease: "power2.out",
            pointerEvents: "all"
          });
+
+         tl.addLabel("approach");
+         tl.call(() => updateUrl("/approach"), null, "<");
 
          // --- Scale In for Approach Circles ---
          tl.from(approachRef.current.querySelector('.approach-circles'), {
@@ -343,6 +399,9 @@ export const useHeroAnimation = ({
            pointerEvents: "all"
          });
 
+         tl.addLabel("conditions");
+         tl.call(() => updateUrl("/conditions"), null, "<");
+
          // --- Step 7.1: Vertical Scroll for Conditions Content ---
          tl.to(conditionsRef.current.querySelector('.conditions-content-inner'), {
             y: () => {
@@ -375,6 +434,9 @@ export const useHeroAnimation = ({
            pointerEvents: "all"
          });
 
+         tl.addLabel("meetTeam");
+         tl.call(() => updateUrl("/meet-our-team"), null, "<");
+
          // --- Step 9: Contact Card Stack (Slide Up) ---
          tl.to(contactRef.current, {
            y: "0%", 
@@ -382,6 +444,9 @@ export const useHeroAnimation = ({
            ease: "power2.inOut", 
            pointerEvents: "all"
          });
+
+         tl.addLabel("contact");
+         tl.call(() => updateUrl("/contact"), null, "<");
 
       });
       
@@ -616,5 +681,5 @@ export const useHeroAnimation = ({
     };
   }, []);
 
-  return { handleResize };
+  return { handleResize, scrollToSection };
 };

@@ -7,6 +7,8 @@ import MeetOurTeam from "./components/pages/MeetOurTeam";
 import Navbar from "./components/layout/Navbar";
 import WhyChooseUs from "./components/pages/WhyChooseUs";
 import Services from "./components/pages/Services";
+import TeamList from "./components/pages/TeamList";
+import TeamMemberDetail from "./components/pages/TeamMemberDetail";
 
 const App = () => {
   return (
@@ -14,11 +16,16 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Hero />} />
-        <Route path="/About-us" element={<AboutUs />} />
-        <Route path="/Why-choose-us" element={<WhyChooseUs />} />
-        <Route path="/Services" element={<Services />} />
+        <Route path="/About-us" element={<Hero />} />
+        <Route path="/Why-choose-us" element={<Hero />} />
+        <Route path="/Services" element={<Hero />} />
+        <Route path="/approach" element={<Hero />} />
+        <Route path="/conditions" element={<Hero />} />
+        <Route path="/contact" element={<Hero />} />
         <Route path="/frequently-asked" element={<FrequentlyAsked />} />
-        <Route path="/meet-our-team" element={<MeetOurTeam />} />
+        <Route path="/meet-our-team" element={<Hero />} />
+        <Route path="/team" element={<TeamList />} />
+        <Route path="/team/:slug" element={<TeamMemberDetail />} />
       </Routes>
     </>
   );
