@@ -1,10 +1,17 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useLayoutEffect } from "react"; // Added useEffect, useLayoutEffect
+import { useLocation } from "react-router-dom"; // Added useLocation
 import { DOODLES } from "../../constants/heroConstants";
 import { useHeroAnimation } from "../../hooks/useHeroAnimation";
 import HeroSplash from "../sections/hero/HeroSplash";
 import HeroBackground from "../sections/hero/HeroBackground";
 import HeroContent from "../sections/hero/HeroContent";
 import AboutUs from "./AboutUs";
+import WhyChooseUs from "./WhyChooseUs";
+import Services from "./Services";
+import Approach from "./Approach";
+import ConditionsWeSupport from "./ConditionsWeSupport";
+import MeetOurTeam from "./MeetOurTeam";
+import Contact from "./Contact";
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -17,8 +24,16 @@ const Hero = () => {
   const socialRef = useRef(null);
   const bgImageRef = useRef(null);
   const aboutRef = useRef(null);
+  const whyChooseUsRef = useRef(null);
+  const servicesRef = useRef(null);
+  const approachRef = useRef(null);
+  const conditionsRef = useRef(null);
+  const meetTeamRef = useRef(null);
+  const contactRef = useRef(null);
 
-  const { handleResize } = useHeroAnimation({
+  const location = useLocation();
+
+  const { handleResize, scrollToSection } = useHeroAnimation({
     heroRef,
     imageContainerRef,
     doodleOverlayRef,
@@ -28,30 +43,99 @@ const Hero = () => {
     socialRef,
     bgImageRef,
     aboutRef,
+    whyChooseUsRef,
+    servicesRef,
+    approachRef,
+    conditionsRef,
+    meetTeamRef,
+    contactRef,
   });
+
+  const isFirstRender = useRef(true);
+
+  useLayoutEffect(() => {
+    // Scroll to section based on current path
+    // Run immediately before paint to avoid visual jump
+    const isMount = isFirstRender.current;
+
+    // Use 'auto' (instant) for initial mount to avoid scroll jump
+    // Use 'smooth' for updates (navigation within Hero)
+    scrollToSection(location.pathname, isMount ? "auto" : "smooth");
+
+    if (isMount) {
+      isFirstRender.current = false;
+    }
+  }, [location.pathname, scrollToSection]);
 
   return (
     <div
       ref={heroRef}
       className="relative w-full min-h-screen md:h-screen bg-background overflow-x-hidden md:overflow-hidden flex flex-col md:block"
     >
-      <div className="sticky top-0 h-dvh flex flex-col w-full z-0 md:contents">
-        <HeroSplash titleRef={splashTitleRef} overlayRef={splashOverlayRef} />
+      <HeroSplash titleRef={splashTitleRef} overlayRef={splashOverlayRef} />
 
-        <HeroBackground
-          containerRef={imageContainerRef}
-          bgImageRef={bgImageRef}
-          socialRef={socialRef}
-          doodleOverlayRef={doodleOverlayRef}
-          doodles={DOODLES}
-          onImageLoad={handleResize}
-        />
+      <HeroBackground
+        containerRef={imageContainerRef}
+        bgImageRef={bgImageRef}
+        socialRef={socialRef}
+        doodleOverlayRef={doodleOverlayRef}
+        doodles={DOODLES}
+        onImageLoad={handleResize}
+      />
 
-        <HeroContent overlayRef={overlayRef} contentRef={contentRef} />
+      <HeroContent overlayRef={overlayRef} contentRef={contentRef} />
+
+      {/* About Us Content layered into the same scroll context */}
+      <div className="absolute top-[100vh] left-0 w-full z-20 md:block md:top-[40vh] md:min-h-screen md:z-10 flex flex-col justify-start">
+        <AboutUs ref={aboutRef} />
       </div>
 
-      <div className="relative w-full z-20 bg-background md:bg-transparent md:absolute md:top-[45vh] md:min-h-[55vh] md:pointer-events-none md:z-10 flex flex-col justify-start">
-        <AboutUs ref={aboutRef} />
+      {/* Why Choose Us Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-30 h-screen translate-y-full"
+        ref={whyChooseUsRef}
+      >
+        <WhyChooseUs />
+      </div>
+
+      {/* Services Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-40 h-screen translate-y-full"
+        ref={servicesRef}
+      >
+        <Services />
+      </div>
+
+      {/* Approach Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-50 h-screen translate-y-full"
+        ref={approachRef}
+      >
+        <Approach />
+      </div>
+
+      {/* Conditions Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-60 h-screen translate-y-full"
+        ref={conditionsRef}
+      >
+        <ConditionsWeSupport />
+      </div>
+
+      {/* Meet Our Team Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-[70] h-screen translate-y-full"
+        ref={meetTeamRef}
+      >
+        <MeetOurTeam />
+      </div>
+
+      {/* Contact Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-[80] h-screen translate-y-full"
+        ref={contactRef}
+      >
+        <Contact />
       </div>
     </div>
   );
