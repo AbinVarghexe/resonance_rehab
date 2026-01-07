@@ -12,6 +12,8 @@ import Approach from "./Approach";
 import ConditionsWeSupport from "./ConditionsWeSupport";
 import MeetOurTeam from "./MeetOurTeam";
 import Contact from "./Contact";
+import FrequentlyAsked from "./FrequentlyAsked";
+import Footer from "../layout/Footer";
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -30,6 +32,8 @@ const Hero = () => {
   const conditionsRef = useRef(null);
   const meetTeamRef = useRef(null);
   const contactRef = useRef(null);
+  const faqRef = useRef(null);
+  const footerRef = useRef(null);
 
   const location = useLocation();
 
@@ -47,8 +51,11 @@ const Hero = () => {
     servicesRef,
     approachRef,
     conditionsRef,
+    conditionsRef,
     meetTeamRef,
     contactRef,
+    faqRef,
+    footerRef,
   });
 
   const isFirstRender = useRef(true);
@@ -136,6 +143,22 @@ const Hero = () => {
         ref={contactRef}
       >
         <Contact />
+      </div>
+
+      {/* FAQ Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-[90] h-screen translate-y-full"
+        ref={faqRef}
+      >
+        <FrequentlyAsked />
+      </div>
+
+      {/* Footer Content - Card Stack Effect */}
+      <div
+        className="absolute top-0 left-0 w-full z-[100] h-screen translate-y-full"
+        ref={footerRef}
+      >
+        <Footer />
       </div>
     </div>
   );

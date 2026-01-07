@@ -1,6 +1,6 @@
-import React, { useState, forwardRef } from 'react';
-import { faqData } from '../../data/faqData';
-import {FAQCard} from '../ui/Faqcard';
+import React, { useState, forwardRef } from "react";
+import { faqData } from "../../data/faqData";
+import { FAQCard } from "../ui/Faqcard";
 
 const FrequentlyAsked = forwardRef((props, ref) => {
   const [showFullFAQ, setShowFullFAQ] = useState(false);
@@ -29,7 +29,11 @@ const FrequentlyAsked = forwardRef((props, ref) => {
 
           <div className="space-y-4 md:space-y-6">
             {questions.slice(0, 3).map((faq, index) => (
-              <FAQCard key={index} question={faq.question} answer={faq.answer} />
+              <FAQCard
+                key={index}
+                question={faq.question}
+                answer={faq.answer}
+              />
             ))}
           </div>
 
@@ -63,7 +67,7 @@ const FrequentlyAsked = forwardRef((props, ref) => {
 FrequentlyAsked.displayName = "FrequentlyAsked";
 const FullFAQPage = ({ onBack }) => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-background animate-in fade-in duration-300">
       <div className="container-custom py-8 md:py-12 px-4 md:px-6">
         <div className="text-center mb-8 md:mb-12 mt-8 md:mt-16">
           <h1 className="font-autumn text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-4 px-4">
@@ -82,7 +86,11 @@ const FullFAQPage = ({ onBack }) => {
 
               <div className="space-y-4 md:space-y-6">
                 {category.questions.map((faq, i) => (
-                  <FAQCard key={i} question={faq.question} answer={faq.answer} />
+                  <FAQCard
+                    key={i}
+                    question={faq.question}
+                    answer={faq.answer}
+                  />
                 ))}
               </div>
             </div>

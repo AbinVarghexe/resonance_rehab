@@ -9,6 +9,7 @@ import WhyChooseUs from "./components/pages/WhyChooseUs";
 import Services from "./components/pages/Services";
 import TeamList from "./components/pages/TeamList";
 import TeamMemberDetail from "./components/pages/TeamMemberDetail";
+import Footer from "./components/layout/Footer";
 
 const App = () => {
   return (
@@ -22,10 +23,11 @@ const App = () => {
         <Route path="/approach" element={<Hero />} />
         <Route path="/conditions" element={<Hero />} />
         <Route path="/contact" element={<Hero />} />
-        <Route path="/frequently-asked" element={<FrequentlyAsked />} />
+        <Route path="/frequently-asked" element={<Hero />} />
         <Route path="/meet-our-team" element={<Hero />} />
         <Route path="/team" element={<TeamList />} />
         <Route path="/team/:slug" element={<TeamMemberDetail />} />
+        <Route path="/footer" element={<Hero />} />
       </Routes>
     </>
   );
