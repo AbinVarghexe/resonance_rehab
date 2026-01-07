@@ -31,6 +31,8 @@ export const useHeroAnimation = ({
   conditionsRef,
   meetTeamRef,
   contactRef,
+  faqRef,
+  footerRef,
 }) => {
   const handleResize = useCallback(() => {
     updateDoodleContainer(
@@ -58,6 +60,8 @@ export const useHeroAnimation = ({
       case '/conditions': label = 'conditions'; break;
       case '/meet-our-team': label = 'meetTeam'; break;
       case '/contact': label = 'contact'; break;
+      case '/frequently-asked': label = 'faq'; break;
+      case '/footer': label = 'footer'; break;
       default: return;
     }
 
@@ -123,7 +127,7 @@ export const useHeroAnimation = ({
           scrollTrigger: {
             trigger: heroRef.current,
             start: "top top",
-            end: "+=2800%", // Extended for Contact
+            end: "+=5500%", // Extended for Contact, FAQ & Footer
             scrub: 1,
             pin: true,
             onUpdate: () => updateDoodleContainer(
@@ -399,6 +403,7 @@ export const useHeroAnimation = ({
            pointerEvents: "all"
          });
 
+
          tl.addLabel("conditions");
          tl.call(() => updateUrl("/conditions"), null, "<");
 
@@ -434,6 +439,7 @@ export const useHeroAnimation = ({
            pointerEvents: "all"
          });
 
+
          tl.addLabel("meetTeam");
          tl.call(() => updateUrl("/meet-our-team"), null, "<");
 
@@ -445,8 +451,69 @@ export const useHeroAnimation = ({
            pointerEvents: "all"
          });
 
+
          tl.addLabel("contact");
          tl.call(() => updateUrl("/contact"), null, "<");
+
+         // --- Step 10: FAQ Card Stack (Slide Up) ---
+         tl.to(faqRef.current, {
+           y: "0%",
+           duration: 2,
+           ease: "power2.inOut",
+           pointerEvents: "all"
+         });
+
+         
+         tl.addLabel("faq");
+         tl.call(() => updateUrl("/frequently-asked"), null, "<");
+
+         // --- Step 10.1: Vertical Scroll for FAQ Content ---
+         tl.to(faqRef.current.querySelector('.container-custom'), {
+            y: () => {
+                const container = faqRef.current.querySelector('.container-custom');
+                if (!container) return 0;
+                
+                const containerHeight = container.offsetHeight;
+                const viewHeight = window.innerHeight;
+                
+                if (containerHeight > viewHeight) {
+                     return -(containerHeight - viewHeight + 150); // +150 padding/footer
+                }
+                return 0;
+            },
+            duration: 8, // Extended scroll for long content
+            ease: "none"
+         });
+
+         // --- Step 11: Footer Card Stack (Slide Up) ---
+         tl.to(footerRef.current, {
+           y: "0%",
+           duration: 2,
+           ease: "power2.inOut",
+           pointerEvents: "all"
+         });
+         // Scale down FAQ for stack effect (optional, matches previous pattern)
+        //  tl.to(faqRef.current, {
+        //    scale: 0.95,
+        //    filter: "brightness(0.8)",
+        //    duration: 2,
+        //    ease: "power2.out"
+        //  }, "<");
+
+         tl.addLabel("footer");
+         tl.call(() => updateUrl("/footer"), null, "<");
+
+         // --- Step 12: Release Scroll (End of Stack) ---
+         // Allow Hero to grow and Footer to flow naturally
+         tl.set(heroRef.current, { 
+             height: "auto", 
+             overflow: "visible" 
+         });
+         tl.set(footerRef.current, { 
+             position: "relative",
+             height: "auto",
+             overflow: "visible"
+         });
 
       });
       
@@ -659,6 +726,46 @@ export const useHeroAnimation = ({
 
              // Slide Contact Up (Card Stack)
              scrollTl.to(contactRef.current, {
+                 y: "0%",
+                 ease: "none"
+             });
+         }
+
+         if (faqRef.current) {
+             // Init FAQ for Mobile
+             gsap.set(faqRef.current, {
+                 position: "absolute",
+                 top: 0,
+                 left: 0,
+                 width: "100%",
+                 height: "100dvh",
+                 zIndex: 90,
+                 y: "100%",
+                 overflow: "hidden"
+             });
+
+             // Slide FAQ Up (Card Stack)
+             scrollTl.to(faqRef.current, {
+                 y: "0%",
+                 ease: "none"
+             });
+         }
+
+         if (footerRef.current) {
+             // Init Footer for Mobile
+             gsap.set(footerRef.current, {
+                 position: "absolute",
+                 top: 0,
+                 left: 0,
+                 width: "100%",
+                 height: "100dvh",
+                 zIndex: 100,
+                 y: "100%",
+                 overflow: "hidden"
+             });
+
+             // Slide Footer Up (Card Stack)
+             scrollTl.to(footerRef.current, {
                  y: "0%",
                  ease: "none"
              });
