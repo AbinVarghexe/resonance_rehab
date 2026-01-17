@@ -198,7 +198,7 @@ export const teamData = {
       description: "Licensed pediatric occupational therapist specializing in sensory integration and rehabilitation approaches.",
       image: "/images/meetourteam/muhammad.png",
       credentials: "Bachelor's in Occupational Therapy",
-      age: "Pediatric",
+      age: "Pediatric(2.5+ years)",
       languages: "English, Malayalam, Hindi",
       about: "As a dedicated and passionate Occupational Therapist with over 2.5 years of experience in pediatric rehabilitation, I have worked with children with diverse needs and abilities. My expertise in sensory integration therapy and other rehabilitation approaches enables me to develop tailored treatment plans that cater to each child's unique requirements. I am committed to providing compassionate and evidence-based care to help children achieve their full potential.",
       areasOfFocus: [

@@ -3,7 +3,6 @@ import Container from "../ui/Container";
 import Button from "../ui/Button";
 
 // Assets
-// Assets
 const imgSwirl = "/images/ConditionsWeSupport/swril.svg";
 const imgUnderline = "/images/ConditionsWeSupport/underline.svg";
 const imgStar = "/images/ConditionsWeSupport/star.svg";
@@ -75,20 +74,20 @@ const ConditionsWeSupport = forwardRef((props, ref) => {
   return (
     <section
       ref={ref}
-      className="w-full min-h-screen bg-[#e8e6f3] flex flex-col justify-start pt-32 pb-20 relative overflow-hidden"
+      className="w-full min-h-screen bg-[#e8e6f3] flex flex-col justify-start pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden"
     >
       <Container className="relative z-10 flex flex-col items-center">
-        <div className="conditions-content-inner w-full flex flex-col items-center gap-10">
+        <div className="conditions-content-inner w-full flex flex-col items-center gap-8 sm:gap-10">
           {/* Header */}
-          <div className="relative mb-8 text-center px-4">
+          <div className="relative mb-6 sm:mb-8 text-center px-4">
             {/* Top Star Doodle */}
             <img
               src={imgStar}
               alt=""
-              className="absolute -top-12 left-0 w-16 md:w-20 -rotate-12"
+              className="absolute -top-8 sm:-top-10 md:-top-12 left-0 sm:left-2 w-12 sm:w-14 md:w-16 lg:w-20 -rotate-12"
             />
 
-            <h2 className="font-autumn text-5xl md:text-7xl lg:text-[64px] leading-[1.2] text-primary-color relative z-10">
+            <h2 className="font-autumn text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-[64px] leading-[1.2] text-primary-color relative z-10">
               Conditions <span className="text-[#6942b5]">We</span> Support
             </h2>
 
@@ -96,12 +95,12 @@ const ConditionsWeSupport = forwardRef((props, ref) => {
             <img
               src={imgUnderline}
               alt=""
-              className="absolute z-10 -bottom-4 left-1/2 -translate-x-1/2 w-48 md:w-64 z-0"
+              className="absolute z-10 -bottom-3 sm:-bottom-4 left-1/2 -translate-x-1/2 w-36 sm:w-40 md:w-48 lg:w-64 z-0"
             />
           </div>
 
           {/* Cards Grid/Stack */}
-          <div className="w-full max-w-4xl space-y-6 relative px-4">
+          <div className="w-full max-w-4xl space-y-4 sm:space-y-5 md:space-y-6 relative px-4">
             {/* Doodles Layout */}
 
             {/* Swirl for Autism (Card 1) - Left */}
@@ -152,34 +151,34 @@ const ConditionsWeSupport = forwardRef((props, ref) => {
             {conditions.map((condition, index) => (
               <div
                 key={index}
-                className="bg-[#faf9ff] rounded-[20px] p-8 md:p-10 w-full shadow-sm relative z-10"
+                className="bg-[#faf9ff] rounded-2xl sm:rounded-[20px] p-5 sm:p-6 md:p-8 lg:p-10 w-full shadow-sm relative z-10"
               >
-                <h3 className="font-urbanist font-bold text-2xl md:text-3xl text-primary-color mb-4 leading-tight">
+                <h3 className="font-urbanist font-bold text-xl sm:text-2xl md:text-3xl text-primary-color mb-3 sm:mb-4 leading-tight">
                   {condition.title}
                 </h3>
-                <div className="font-urbanist font-light text-base md:text-[16px] text-primary-color space-y-2">
+                <div className="font-urbanist font-light text-sm sm:text-base md:text-[16px] text-primary-color space-y-1.5 sm:space-y-2">
                   <p>{condition.description}</p>
                   <p>{condition.signs}</p>
-                  <p className="pt-2 font-medium">{condition.therapies}</p>
+                  <p className="pt-1.5 sm:pt-2 font-medium">{condition.therapies}</p>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Footer */}
-          <div className="text-center mt-12 space-y-6">
-            <p className="font-urbanist text-primary-color/80 text-lg max-w-md mx-auto">
+          <div className="text-center mt-8 sm:mt-10 md:mt-12 space-y-4 sm:space-y-5 md:space-y-6 px-4">
+            <p className="font-urbanist text-primary-color/80 text-sm sm:text-base md:text-lg max-w-md mx-auto">
               Unsure which condition fits your child's needs?
               <br />
               We'll help you figure it out.
             </p>
-            <Button className="bg-[#dae562] text-primary-color px-8 py-3 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg">
+            <Button className="bg-[#dae562] text-primary-color px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-base sm:text-lg hover:scale-105 active:scale-95 transition-transform shadow-lg w-full sm:w-auto max-w-xs sm:max-w-none">
               Book a Session
             </Button>
           </div>
 
           {/* Scroll Padding */}
-          <div className="h-40"></div>
+          <div className="h-24 sm:h-32 md:h-40"></div>
         </div>
       </Container>
     </section>

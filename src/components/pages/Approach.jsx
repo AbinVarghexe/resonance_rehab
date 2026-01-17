@@ -6,9 +6,8 @@ const Approach = forwardRef((props, ref) => {
   return (
     <section
       ref={ref}
-      className="w-full min-h-screen bg-[#e8e6f3] flex flex-col justify-start pt-32 md:pt-80 pb-20 relative overflow-hidden"
+      className="w-full min-h-screen bg-[#e8e6f3] flex flex-col justify-start pt-20 sm:pt-24 md:pt-80 pb-12 sm:pb-16 md:pb-20 relative overflow-hidden px-4 sm:px-6 md:px-0"
     >
-      {/* Background Decor - Positioned absolutely to the right */}
       {/* Background Decor - SVG for Text on Circles */}
       <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
         <svg
@@ -84,23 +83,23 @@ const Approach = forwardRef((props, ref) => {
       <Container className="relative z-10 flex flex-col justify-start">
         <div className="approach-content-inner w-full">
           {/* Header/Subtitle */}
-          <div className="mb-6">
-            <h3 className="font-urbanist text-primary-color font-semibold text-lg md:text-xl tracking-wide mb-2">
+          <div className="mb-4 sm:mb-5 md:mb-6">
+            <h3 className="font-urbanist text-primary-color font-semibold text-base sm:text-lg md:text-xl tracking-wide mb-2">
               Our Approach, Vision & Mission
             </h3>
           </div>
 
           {/* Main Title */}
-          <h2 className="font-autumn text-5xl md:text-7xl lg:text-8xl text-primary-color leading-[0.9] mb-12 max-w-4xl">
+          <h2 className="font-autumn text-3xl sm:text-4xl md:text-5xl lg:text-7xl xl:text-8xl text-primary-color leading-[0.9] mb-8 sm:mb-10 md:mb-12 max-w-4xl">
             <span className="text-secondary-color">Guided</span> by Care.
             <br />
             <span className="text-secondary-color">Grounded</span> in Purpose.
           </h2>
 
           {/* Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-24">
             {/* Left Column: Text */}
-            <div className="space-y-6 md:space-y-8 font-urbanist text-primary-color/80 text-base md:text-lg leading-relaxed w-4xl">
+            <div className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8 font-urbanist text-primary-color/80 text-sm sm:text-base md:text-lg leading-relaxed w-4xl">
               <p>
                 At Resonance Rehab, we begin every journey with one simple
                 belief: that healing starts with understanding.
@@ -133,9 +132,9 @@ const Approach = forwardRef((props, ref) => {
               </p>
             </div>
 
-            {/* Right Column: Button (or empty space for bg visuals on desktop) */}
-            <div className="flex items-end justify-start lg:justify-end pb-8">
-              <Button className="bg-[#D4E75F] text-primary-color px-8 py-3 rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-lg">
+            {/* Right Column: Button */}
+            <div className="flex items-end justify-start lg:justify-end pb-4 sm:pb-6 md:pb-8">
+              <Button className="bg-[#D4E75F] text-primary-color px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-base sm:text-lg hover:scale-105 active:scale-95 transition-transform shadow-lg w-full sm:w-auto max-w-xs sm:max-w-none">
                 More About Us
               </Button>
             </div>

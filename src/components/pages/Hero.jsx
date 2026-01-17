@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, useLayoutEffect } from "react"; // Added useEffect, useLayoutEffect
-import { useLocation } from "react-router-dom"; // Added useLocation
+import React, { useRef, useEffect, useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { DOODLES } from "../../constants/heroConstants";
 import { useHeroAnimation } from "../../hooks/useHeroAnimation";
 import HeroSplash from "../sections/hero/HeroSplash";
@@ -92,69 +92,69 @@ const Hero = () => {
       <HeroContent overlayRef={overlayRef} contentRef={contentRef} />
 
       {/* About Us Content layered into the same scroll context */}
-      <div className="absolute top-[100vh] left-0 w-full z-20 md:block md:top-[40vh] md:min-h-screen md:z-10 flex flex-col justify-start">
+      <div className="relative md:absolute top-0 md:top-[100vh] left-0 w-full z-20 md:z-20 min-h-screen md:min-h-screen flex flex-col justify-start">
         <AboutUs ref={aboutRef} />
       </div>
 
-      {/* Why Choose Us Content - Card Stack Effect */}
+      {/* Why Choose Us Content - Card Stack Effect on Desktop, Flow on Mobile - Allow natural height */}
       <div
-        className="absolute top-0 left-0 w-full z-30 h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-30 min-h-screen md:min-h-screen md:h-auto md:translate-y-full"
         ref={whyChooseUsRef}
       >
         <WhyChooseUs />
       </div>
 
-      {/* Services Content - Card Stack Effect */}
+      {/* Services Content - Card Stack Effect on Desktop, Flow on Mobile - Allow natural height */}
       <div
-        className="absolute top-0 left-0 w-full z-40 h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-40 min-h-screen md:min-h-screen md:h-auto md:translate-y-full"
         ref={servicesRef}
       >
         <Services />
       </div>
 
-      {/* Approach Content - Card Stack Effect */}
+      {/* Approach Content - Card Stack Effect on Desktop, Flow on Mobile - Allow natural height */}
       <div
-        className="absolute top-0 left-0 w-full z-50 h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-50 min-h-screen md:min-h-screen md:h-auto md:translate-y-full"
         ref={approachRef}
       >
         <Approach />
       </div>
 
-      {/* Conditions Content - Card Stack Effect */}
+      {/* Conditions Content - Card Stack Effect on Desktop, Flow on Mobile - Allow natural height */}
       <div
-        className="absolute top-0 left-0 w-full z-60 h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-[60] min-h-screen md:min-h-screen md:h-auto md:translate-y-full"
         ref={conditionsRef}
       >
         <ConditionsWeSupport />
       </div>
 
-      {/* Meet Our Team Content - Card Stack Effect */}
+      {/* Meet Our Team Content - Card Stack Effect on Desktop, Flow on Mobile */}
       <div
-        className="absolute top-0 left-0 w-full z-[70] h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-[70] min-h-screen md:h-screen md:translate-y-full"
         ref={meetTeamRef}
       >
         <MeetOurTeam />
       </div>
 
-      {/* Contact Content - Card Stack Effect */}
+      {/* Contact Content - Card Stack Effect on Desktop, Flow on Mobile */}
       <div
-        className="absolute top-0 left-0 w-full z-[80] h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-[80] min-h-screen md:h-screen md:translate-y-full"
         ref={contactRef}
       >
         <Contact />
       </div>
 
-      {/* FAQ Content - Card Stack Effect */}
+      {/* FAQ Content - Card Stack Effect on Desktop, Flow on Mobile - Allow natural height */}
       <div
-        className="absolute top-0 left-0 w-full z-[90] h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-[90] min-h-screen md:min-h-screen md:h-auto md:translate-y-full"
         ref={faqRef}
       >
         <FrequentlyAsked />
       </div>
 
-      {/* Footer Content - Card Stack Effect */}
+      {/* Footer Content - Card Stack Effect on Desktop, Flow on Mobile - Allow natural height */}
       <div
-        className="absolute top-0 left-0 w-full z-[100] h-screen translate-y-full"
+        className="relative md:absolute top-0 left-0 w-full z-[100] min-h-screen md:min-h-screen md:h-auto md:translate-y-full"
         ref={footerRef}
       >
         <Footer />
