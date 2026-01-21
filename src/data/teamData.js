@@ -306,7 +306,35 @@ export const teamData = {
     "Structured and supportive sessions"
   ],
   experience: "1+ year"
-}
+}, {
+      id: 12,
+      name: "Shahana Sherin",
+      slug: "shahana-sherin",
+      title: "Speech-Language Pathologist",
+      category: "speech",
+      description: "RCI certified SLP providing comprehensive speech and language evaluations with expertise in OPT, AAC, and parent-led interventions.",
+      image: "/images/meetourteam/shahana.png",
+      credentials: "B.ASLP (Bachelor of Audiology and Speech-Language Pathology)",
+      age: "Children & Adults",
+      languages: "English, Malayalam",
+      about: "I am a dedicated Speech-Language Pathologist focused on providing high-quality health services and support to my clients. I create personalized treatment plans based on careful assessments and an understanding of each client's unique challenges. I use modern assessment tools and effective therapy techniques to help patients improve their speech and language skills. I continue to develop my professional skills to stay updated with the latest advancements in speech and hearing, ensuring that I offer the best care possible to those I serve.",
+      areasOfFocus: [
+        "Speech and language disorder evaluation",
+        "Targeted speech and language interventions",
+        "Oral Placement Therapy (OPT)",
+        "Parent-Led Intervention Programs",
+        "Augmentative and Alternative Communication (AAC)"
+      ],
+      approach: [
+        "Personalized treatment plans",
+        "Modern assessment tools",
+        "Evidence-based therapy techniques",
+        "Client-centered care"
+      ],
+      location: "Kerala",
+      registration: "RCI Certified",
+      experience: "1+ year"
+    },
   ],
 
 
