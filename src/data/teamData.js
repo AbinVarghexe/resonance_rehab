@@ -397,6 +397,37 @@ about:"Works closely with children and youth, supporting their development throu
   location: "Canada",
   experience: "5+ years in psychology, 2+ years in ABA"
 },
+{
+  id: 15,
+  name: "Jen Ponnachan",
+  slug: "jen-ponnachan",
+  title: "Occupational Therapist",
+  category: "occupational",
+  description: "Pediatric occupational therapist with expertise in sensory integration therapy and rehabilitation-based approaches for children's development.",
+  image: "/images/meetourteam/jen.png",
+  credentials: "Bachelor's in Occupational Therapy",
+  age: "Pediatric (2.5+ years)",
+  languages: "English, Malayalam, Hindi",
+  about: "Hi, I'm a pediatric occupational therapist with 2+ years of clinical experience, with expertise in sensory integration therapy and rehabilitation-based approaches. I work with children to improve sensory processing, motor skills, functional independence, and overall participation in daily activities using evidence-based, child-centered interventions.",
+  areasOfFocus: [
+    "Developmental and neurological conditions",
+    "Early intervention",
+    "Sensory integration therapy",
+    "Participation in home, school and community activities",
+    "Functional independence",
+    "Sensory processing",
+    "Motor skills development"
+  ],
+  approach: [
+    "Child-centered and evidence-based practice",
+    "Structured, play-based therapeutic activities",
+    "Tailored treatment plans",
+    "Individualized goal-oriented intervention planning",
+    "Active parent education and caregiver collaboration"
+  ],
+  location: "Kerala",
+  experience: "2+ years"
+},
   ],
 
 
