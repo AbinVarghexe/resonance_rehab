@@ -366,6 +366,36 @@ export const teamData = {
   location: "Kerala, India",
   registration: "RCI Certified",
   experience: "1+ year"
+},{
+  id: 14,
+  name: "Athira",
+  slug: "athira",
+  title: "Behaviour Therapist",
+  category: "behaviour-therapist",
+  description: "Experienced behaviour therapist specializing in ABA with a focus on evidence-based interventions for children and youth with neurodevelopmental disorders.",
+  image: "/images/meetourteam/athira.png",
+  credentials: "M.Sc Clinical and Counselling Psychology, Graduate Certificate in Research Analysis",
+  age: "Children & Youth",
+  languages: "English, Malayalam",
+about:"Works closely with children and youth, supporting their development through evidence-based and individualized behavioural interventions. She is deeply passionate about helping individuals reach their full potential and is committed to creating a positive, supportive, and inclusive therapeutic environment. Her approach is personalized, ensuring that each child’s unique strengths and needs guide the intervention process.",
+  areasOfFocus: [
+    "Applied Behaviour Analysis (ABA)",
+    "Early intervention and skill development",
+    "Behaviour management and positive behaviour support",
+    "Autism Spectrum Disorder (ASD)",
+    "Neurodevelopmental disorders",
+    "Social skills training",
+    "Communication development",
+    "Parent and caregiver coaching"
+  ],
+  approach: [
+    "Evidence-based behavioural interventions",
+    "Individualized and goal-oriented therapy plans",
+    "Strength-based and child-centred approach",
+    "Collaboration with families and caregivers"
+  ],
+  location: "Canada",
+  experience: "5+ years in psychology, 2+ years in ABA"
 },
   ],
 
