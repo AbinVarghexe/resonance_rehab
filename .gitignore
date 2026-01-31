@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+dist.zip
+.github/workflows/README.md
+docs/DEPLOYMENT.md
