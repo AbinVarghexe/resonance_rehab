@@ -60,13 +60,12 @@ jobs:
           cp -r dist/* deploy/react/
           
           if [ -f ".htaccess" ]; then
-            cp .htaccess deploy/.htaccess
+            cp .htaccess deploy/react/.htaccess
             echo "✅ .htaccess included"
           fi
           
           cd deploy
           zip -r ../react-build-${{ github.sha }}.zip react/
-          zip -r ../htaccess-config-${{ github.sha }}.zip .htaccess
           cd ..
           
           echo "✅ Deployment packages ready"
@@ -126,25 +125,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./deploy/react/
-          server-dir: /public_html/react/
-          state-name: .ftp-deploy-sync-state-react.json
-          dangerous-clean-slate: false
-          log-level: verbose
-
-      - name: Deploy .htaccess via FTP (Fallback)
-        if: steps.git-deploy.outcome == 'failure'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./deploy/
           server-dir: /public_html/
-          state-name: .ftp-deploy-sync-state-htaccess.json
+          state-name: .ftp-deploy-sync-state.json
           dangerous-clean-slate: false
           log-level: verbose
-          exclude: |
-            react/**
 
       - name: Cleanup
         if: always()
