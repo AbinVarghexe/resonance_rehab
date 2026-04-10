@@ -29,7 +29,8 @@
 
 <a href="docs/DOCUMENTATION.md">📖 Documentation</a> ·
 <a href="docs/QUICKSTART.md">⚡ Quick Start</a> ·
-<a href="docs/FEATURES.md">🛠️ Features</a>
+<a href="docs/FEATURES.md">🛠️ Features</a> ·
+<a href="docs/SUPABASE_SETUP.md">🗄️ Supabase Setup</a>
 
 </div>
 

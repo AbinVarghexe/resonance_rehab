@@ -1,4 +1,13 @@
-import { saveTeamMemberPhoto } from "@/server/teamPhotoStore";
+import { verifyAdminAccessToken } from "@/server/adminAuth";
+import { updateTeamMemberPhoto } from "@/server/teamMembersRepository";
+
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: "8mb",
+    },
+  },
+};
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -7,8 +16,14 @@ export default async function handler(req, res) {
   }
 
   try {
+    const authHeader = req.headers.authorization || "";
+    const token = authHeader.startsWith("Bearer ")
+      ? authHeader.slice("Bearer ".length).trim()
+      : "";
+    await verifyAdminAccessToken(token);
+
     const { slug, mimeType, base64Data } = req.body || {};
-    const updatedMember = await saveTeamMemberPhoto({
+    const updatedMember = await updateTeamMemberPhoto({
       slug,
       mimeType,
       base64Data,
@@ -19,7 +34,8 @@ export default async function handler(req, res) {
       member: updatedMember,
     });
   } catch (error) {
-    return res.status(400).json({
+    const isAuthError = /token|session|account|auth/i.test(error.message || "");
+    return res.status(isAuthError ? 401 : 400).json({
       error: error.message || "Unable to upload team photo",
     });
   }
