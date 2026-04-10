@@ -19,7 +19,7 @@ const useTeamMembers = () => {
         if (isMounted && Array.isArray(data.members)) {
           setMembers(data.members);
         }
-      } catch (_error) {
+      } catch {
         // Fallback to bundled data
       } finally {
         if (isMounted) {
