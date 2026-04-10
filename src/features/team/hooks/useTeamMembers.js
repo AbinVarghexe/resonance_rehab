@@ -19,7 +19,8 @@ const useTeamMembers = () => {
         if (isMounted && Array.isArray(data.members)) {
           setMembers(data.members);
         }
-      } catch {
+      } catch (error) {
+        console.warn("Falling back to bundled team data:", error);
         // Fallback to bundled data
       } finally {
         if (isMounted) {

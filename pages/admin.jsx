@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { getSupabaseBrowserClient } from "@/lib/supabaseClient";
 
+const BTOA_CHUNK_SIZE = 0x8000;
+
 const toBase64 = async (file) => {
   const buffer = await file.arrayBuffer();
   let binary = "";
   const bytes = new Uint8Array(buffer);
-  const chunkSize = 0x8000;
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+  for (let i = 0; i < bytes.length; i += BTOA_CHUNK_SIZE) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + BTOA_CHUNK_SIZE));
   }
   return btoa(binary);
 };

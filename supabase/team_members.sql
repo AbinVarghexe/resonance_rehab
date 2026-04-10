@@ -1,5 +1,6 @@
 create table if not exists public.team_members (
   id bigserial primary key,
+  -- member_id keeps compatibility with existing frontend ordering/ids from static data
   member_id integer not null unique,
   name text not null,
   slug text not null unique,

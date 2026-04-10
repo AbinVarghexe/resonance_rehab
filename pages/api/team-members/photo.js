@@ -4,6 +4,7 @@ import { updateTeamMemberPhoto } from "@/server/teamMembersRepository";
 export const config = {
   api: {
     bodyParser: {
+      // 5MB file payload arrives as base64, so request body must allow expansion overhead.
       sizeLimit: "8mb",
     },
   },
@@ -34,8 +35,7 @@ export default async function handler(req, res) {
       member: updatedMember,
     });
   } catch (error) {
-    const isAuthError = /token|session|account|auth/i.test(error.message || "");
-    return res.status(isAuthError ? 401 : 400).json({
+    return res.status(error.status || 500).json({
       error: error.message || "Unable to upload team photo",
     });
   }
