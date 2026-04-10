@@ -1,10 +1,11 @@
 import React, { forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { teamData } from "@/data/teamData";
 import HomeTeamCard from "@/shared/components/ui/HomeTeamCard";
+import useTeamMembers from "@/features/team/hooks/useTeamMembers";
 
 const MeetOurTeam = forwardRef((props, ref) => {
   const navigate = useNavigate();
+  const { members } = useTeamMembers();
 
   const handleViewFullTeam = () => {
     navigate("/team");
@@ -35,7 +36,7 @@ const MeetOurTeam = forwardRef((props, ref) => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-6 md:mb-12 max-w-6xl mx-auto">
-          {teamData.psychologists.slice(0, 3).map((member) => (
+          {members.slice(0, 3).map((member) => (
             <HomeTeamCard
               key={member.id}
               member={member}
